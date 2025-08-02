@@ -1,13 +1,12 @@
-# MetaPayP2P on Metis Andromeda — Web3 Basic Income Simulation with AI & Peer Transfers
+# metapayp2p-hyperion-clean on Metis Hyperion Testnet — Web3 Basic Income Simulation with AI & Peer Transfers
 
 *(Powered by OpenAI API & Alith AI)*
-
 
 ---
 
 ## 🌍 Project Overview
 
-MetaPayP2P is a Web3-based simulation of a circulating basic income system designed by Gyuha Yoon.  
+metapayp2p-hyperion-clean is a Web3-based simulation of a circulating basic income system designed by Gyuha Yoon.  
 Its purpose is to demonstrate a sustainable economic model where income is continuously circulated rather than endlessly printed.
 
 - ✅ National Wallet distributes funds equally to 10 citizen wallets over 10 distribution rounds.  
@@ -72,7 +71,7 @@ This allows seamless adaptation even in dynamic economic environments.
 
 ## 👥 Want to Join as a Tester?
 
-We are onboarding testers for the next round of MetaPayP2P simulation.  
+We are onboarding testers for the next round of metapayp2p-hyperion-clean simulation.  
 📧 Contact us at anioia33@gmail.com  
 
 ---
@@ -86,10 +85,10 @@ We are onboarding testers for the next round of MetaPayP2P simulation.
 
 | Layer      | Technology                  |
 |------------|------------------------------|
-| Smart Contract | Solidity (Ethereum Sepolia Testnet) |
+| Smart Contract | Solidity (Metis Hyperion Testnet) |
 | Frontend  | React (Vite)                 |
 | Backend   | Node.js + Express            |
-| Blockchain| Ethereum Sepolia             |
+| Blockchain| Metis Hyperion Testnet       |
 | AI Integration | OpenAI API (analyze.js / server.js) |
 | Wallet    | MetaMask                     |
 
@@ -106,7 +105,7 @@ vite-project/
 │   ├── server.js            # OpenAI API Call Handler
 │   └── analyze.js           # AI Logic
 ├── contracts/
-│   └── MetaPayP2P_Complete.sol   # Solidity Smart Contract
+│   └── metapayp2p_hyperion_clean.sol   # Solidity Smart Contract
 ├── public/
 │   └── metapay_full_flow_chart.png
 ├── LICENSE
@@ -168,7 +167,7 @@ It complements the OpenAI API by delivering context-aware warnings and balancing
 
 ## 🤖 AI-Driven Behavior Logic
 
-With the power of OpenAI API, MetaPayP2P simulates intelligent interactions such as:
+With the power of OpenAI API, metapayp2p-hyperion-clean simulates intelligent interactions such as:
 
 - 📊 Proportional transfers (e.g., salary)  
 - 📉 Risk-based warnings for over-expenditure or liquidity issues  
@@ -178,9 +177,9 @@ With the power of OpenAI API, MetaPayP2P simulates intelligent interactions such
 
 ## 📝 Smart Contract Details
 
-- **Contract Source:** `MetaPayP2P_Complete.sol`  
-- **🔥 Deployed Address:** `0x0464aCBce1F9c1A1C2d8da2ca0fc9324d7572BCB` *(Sepolia Testnet)*  
-- **🔗 Smart Contract on Etherscan:** https://sepolia.etherscan.io/address/0x0464aCBce1F9c1A1C2d8da2ca0fc9324d7572BCB  
+- **Contract Source:** `metapayp2p_hyperion_clean.sol`  
+- **🔥 Deployed Address:** `0x538253A02f37328e07B13edaF7133a2A5CDF03b8` *(Metis Hyperion Testnet)*  
+- **🔗 Smart Contract on Explorer:** https://explorer.hyperion.metis.io/address/0x538253A02f37328e07B13edaF7133a2A5CDF03b8  
 - **Deployment Tool:** Remix IDE  
 - **ABI Source:** `/src/abi.js`  
 
@@ -219,9 +218,9 @@ With the power of OpenAI API, MetaPayP2P simulates intelligent interactions such
 
 ## 🔗 Links
 
-- 📝 **GitHub Repository:** [MetaPayP2P-Clean](https://github.com/metapay-creator/MetaPayP2P-Clean)  
+- 📝 **GitHub Repository:** [metapayp2p-hyperion-clean2](https://github.com/metapaygyuhas/metapayp2p-hyperion-clean2)  
 - ▶️ **YouTube Channel:** MetaPay Project  
-- 🔥 **💻 Testnet Simulation (DApp):** [https://meta-pay-p2-p-clean-7aig.vercel.app](https://meta-pay-p2-p-clean-7aig.vercel.app)  
+- 🔥 **💻 Live DApp:** [https://metapayp2p-hyperion-clean2.vercel.app](https://metapayp2p-hyperion-clean2.vercel.app)  
 - ❌ **Twitter (X):** [@metapay_creator](https://x.com/metapay_creator)  
 
 ## 📄 Official User Guide (Must Read)
@@ -261,27 +260,13 @@ For licensing inquiries, contact: anioia33@gmail.com
 
 Violation of this license may result in legal action, including claims for damages and injunctions.
 
-
 ---
 
 ## 📢 Contact  
 
 📧 anioia33@gmail.com  
-GitHub: [metapay-creator](https://github.com/metapay-creator)  
+GitHub: [metapaygyuhas](https://github.com/metapaygyuhas)  
 Twitter: [@metapay_creator](https://x.com/metapay_creator)
----
-
-## 🌍 [FOR WCHL — World Chain Hackathon League]
-
-MetaPayP2P is currently under evaluation in the **World Chain Hackathon League (WCHL)**,  
-representing the **ICP HUB Canada & US** in the **North American region**.
-
-This project demonstrates a policy-oriented, AI-enhanced simulation of a sustainable circulating basic income, powered by smart contracts.
-
-We are honored to be part of the global Web3 innovation ecosystem, and we look forward to the next round in the North America selection stage.
-
-🔗 [GitHub Repo](https://github.com/metapay-creator/MetaPayP2P-Clean)  
-🔗 [Testnet DApp](https://meta-pay-p2-p-clean-7aig.vercel.app)
 
 ---
 
@@ -289,33 +274,20 @@ We are honored to be part of the global Web3 innovation ecosystem, and we look f
 
 This project is also being submitted to the **Metis Hyperion Hackathon**.
 
-MetaPayP2P offers a novel approach to public finance simulation within DAO ecosystems, showcasing how smart contracts and AI can enable autonomous, transparent basic income distribution across a decentralized society.
+metapayp2p-hyperion-clean offers a novel approach to public finance simulation within DAO ecosystems, showcasing how smart contracts and AI can enable autonomous, transparent basic income distribution across a decentralized society.
 
 This version emphasizes on-chain interaction, AI risk detection, and DAO-compatible fund flows — aligned with Metis' Layer 2 mission.
 
 ---
 
-## 🤖 [FOR SEI — AI Accelathon]
-
-MetaPayP2P is also an entry in the **Sei AI Accelathon**, where we highlight AI-enhanced economic analysis, smart contract automation, and dynamic behavior modeling.
-
-The project features:
-- On-chain basic income cycles
-- AI-driven transaction logic (OpenAI API + Alith AI)
-- Real-time risk alerts and simulation dashboard
-
-We are excited to bring the MetaPay simulation to Sei’s AI-powered ecosystem and explore MCP/agent-based integrations in future iterations.
-
 ## 🏛️ [FOR NLNET — Open Source Support Application]
 
 This project has also been submitted to the **NLnet Foundation** as part of its Open Source and Public Digital Infrastructure Initiative.
 
-MetaPayP2P addresses economic imbalance at scale through a government-grade circulating basic income model. While not intended for individual use, it is designed for **policy simulation and national-level pilot experiments**.
+metapayp2p-hyperion-clean addresses economic imbalance at scale through a government-grade circulating basic income model. While not intended for individual use, it is designed for **policy simulation and national-level pilot experiments**.
 
 The system is:
 - Fully open source
 - Operates with smart contract automation
 - Integrated with AI for governance and risk alerts
 - Designed for long-term public experimentation
-
->>>>>>> 6d58c41f404f77d51b189d3ffcefaa33d9d2f2c5
