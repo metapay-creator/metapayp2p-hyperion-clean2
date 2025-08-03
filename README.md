@@ -223,6 +223,17 @@ With the power of OpenAI API, metapayp2p-hyperion-clean simulates intelligent in
 - 🔥 **💻 Live DApp:** [https://metapayp2p-hyperion-clean2.vercel.app](https://metapayp2p-hyperion-clean2.vercel.app)  
 - ❌ **Twitter (X):** [@metapay_creator](https://x.com/metapay_creator)  
 
+## 🤖 AI Server Deployment Info
+
+- The AI backend is **already deployed** on Render for automated behavior analysis:
+  - **Render Endpoint:** https://metapay-openai-backend.onrender.com  
+- The frontend is **pre-configured** to call this deployed AI backend automatically.
+- **No local AI server setup is required** for running the demo — simply run the frontend.
+- AI backend code is **not pushed to GitHub** for security reasons (contains `.env` with API keys).
+- For review purposes, the backend code can be provided privately upon request.
+
+
+
 ## 📄 Official User Guide (Must Read)
 
 [📄 MetaPayP2P User Manual (Google Drive)](https://drive.google.com/file/d/1SAVL8EIXByRPtT2VqP7soc3sPb3JSiUK/view?usp=sharing)
