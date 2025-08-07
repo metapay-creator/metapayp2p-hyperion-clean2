@@ -19,7 +19,7 @@ function App() {
   const [nationalBalance, setNationalBalance] = useState(0);
   const [distributionCount, setDistributionCount] = useState(0);
   const [transactions, setTransactions] = useState([]);
-  const nationalWalletAddress = "0xD7ACd2a9FD159E69Bb102A1ca21C9a3e3A5F771B";
+  const nationalWalletAddress = "0x7Ec3CF875532ACf93012D48bDDe5f3E46B8e1421";
   const userAddresses = [
     "0xcAEc83c59b3FbfE65cC73828e9c89b9c07902105",
     "0x3C39f84a28673bdbA9f19eaAd26e04d95795260C",
