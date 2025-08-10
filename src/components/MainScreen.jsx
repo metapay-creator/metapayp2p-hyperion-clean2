@@ -117,97 +117,81 @@ function MainScreen(props) {
 
   const checkTransferRules = ({ inflowAmount, plannedOutflowAmount, senderBalance, transferAmount }) => {
     const warnings = [];
-    if (plannedOutflowAmount > inflowAmount && inflowAmount > 0)
-      warnings.push(`❗ Planned payout (${plannedOutflowAmount}) exceeds company inflow (${inflowAmount}).`);
-
-    if (typeof senderBalance === 'number' && senderBalance === 0)
-      warnings.push("❗ Current MetaPay balance is 0. Transfer is possible but may be risky.");
-
-    if (senderBalance > 0 && transferAmount > senderBalance * 0.5)
-      warnings.push(`⚠️ You are trying to transfer more than 50% of your MetaPay balance (${(senderBalance * 0.5).toFixed(2)}).`);
-
+    if (plannedOutflowAmount > inflowAmount && inflowAmount > 0) warnings.push(`❗ Planned payout (${plannedOutflowAmount}) exceeds company inflow (${inflowAmount}).`);
+    if (typeof senderBalance === 'number' && senderBalance === 0) warnings.push("❗ Current MetaPay balance is 0. Transfer is possible but may be risky.");
+    if (senderBalance > 0 && transferAmount > senderBalance * 0.5) warnings.push(`⚠️ You are trying to transfer more than 50% of your MetaPay balance (${(senderBalance * 0.5).toFixed(2)}).`);
     return warnings;
   };
 
   const handleDistributeWithCash = async () => {
+    window.plausible?.('Distribute Clicked');
     const success = await onDistribute();
-    if (!success) {
-      addAlert("error", "❌ Distribution failed (MainScreen)");
+    if (!success) addAlert("error", "❌ Distribution failed (MainScreen)");
+  };
+
+  const aiAnalysis = async () => {
+    window.plausible?.('AI Analysis Clicked');
+    try {
+      const response = await fetch(import.meta.env.VITE_API_URL + "/api/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          users: [
+            ...userAddresses.map((addr, idx) => ({
+              label: `User${idx + 1}`,
+              address: addr,
+              balance: userBalances[idx],
+            })),
+            ...companyAddresses.map((addr, idx) => ({
+              label: `Company${idx + 1}`,
+              address: addr,
+              balance: companyBalances[idx],
+            }))
+          ],
+          transactions: transactions
+        }),
+      });
+      const contentType = response.headers.get("content-type");
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`❌ Server error: ${response.status}\n${errorText}`);
+      }
+      if (contentType && contentType.includes("application/json")) {
+        const data = await response.json();
+        if (data.alerts && Array.isArray(data.alerts)) {
+          data.alerts.forEach((alert) => {
+            addAlert(alert.type || "info", alert.message);
+          });
+        }
+        if (data.aiResult) {
+          addAlert("success", "🧠 AI Analysis Result:");
+          data.aiResult.split("\n").forEach((line) => {
+            if (line.trim() !== "") addAlert("info", line.trim());
+          });
+        }
+      } else {
+        const text = await response.text();
+        throw new Error("❌ Invalid JSON response:\n" + text);
+      }
+    } catch (err) {
+      console.error("AI analysis error:", err);
+      addAlert("error", "❌ AI Analysis Failed: " + err.message);
     }
   };
 
- const aiAnalysis = async () => {
-  try {
-    const response = await fetch(import.meta.env.VITE_API_URL + "/api/analyze", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        users: [
-          ...userAddresses.map((addr, idx) => ({
-            label: `User${idx + 1}`,
-            address: addr,
-            balance: userBalances[idx],
-          })),
-          ...companyAddresses.map((addr, idx) => ({
-            label: `Company${idx + 1}`,
-            address: addr,
-            balance: companyBalances[idx],
-          }))
-        ],
-        transactions: transactions
-      }),
-    });
-
-    const contentType = response.headers.get("content-type");
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`❌ Server error: ${response.status}\n${errorText}`);
-    }
-
-    if (contentType && contentType.includes("application/json")) {
-      const data = await response.json();
-
-      if (data.alerts && Array.isArray(data.alerts)) {
-        data.alerts.forEach((alert) => {
-          addAlert(alert.type || "info", alert.message);
-        });
-      }
-
-      if (data.aiResult) {
-        addAlert("success", "🧠 AI Analysis Result:");
-        data.aiResult.split("\n").forEach((line) => {
-          if (line.trim() !== "") {
-            addAlert("info", line.trim());
-          }
-        });
-      }
-    } else {
-      const text = await response.text();
-      throw new Error("❌ Invalid JSON response:\n" + text);
-    }
-
-  } catch (err) {
-    console.error("AI analysis error:", err);
-    addAlert("error", "❌ AI Analysis Failed: " + err.message);
-  }
-};
-
-
   const sendP2P = async () => {
+    window.plausible?.('Transfer Submitted');
     if (!recipient || !amount) return;
     const senderIdx = userAddresses.findIndex(a => a.toLowerCase() === connectedWallet.toLowerCase());
     const senderCompanyIdx = companyAddresses.findIndex(a => a.toLowerCase() === connectedWallet.toLowerCase());
-
     if (senderIdx === -1 && senderCompanyIdx === -1) {
       addAlert("warning", "❗ The connected wallet is not a registered user or company wallet.");
       return;
     }
-
     try {
       const tx = await contract.transfer(recipient, Number(amount));
       await tx.wait();
       onFetchBalances();
-
       if (senderIdx !== -1) {
         setUserCashBalances(prev => {
           const newCash = [...prev];
@@ -221,10 +205,8 @@ function MainScreen(props) {
           return newCash;
         });
       }
-
       const recipientIdx = userAddresses.findIndex(a => a.toLowerCase() === recipient.toLowerCase());
       const recipientCompanyIdx = companyAddresses.findIndex(a => a.toLowerCase() === recipient.toLowerCase());
-
       if (recipientIdx !== -1) {
         setUserCashBalances(prev => {
           const newCash = [...prev];
@@ -238,7 +220,6 @@ function MainScreen(props) {
           return newCash;
         });
       }
-
       setTransactions(prev => [
         ...prev,
         {
@@ -250,7 +231,6 @@ function MainScreen(props) {
           timestamp: new Date().toISOString()
         }
       ]);
-
       addAlert("success", `✅ Sent ${amount} to ${getShortName(recipient)}`);
       setRecipient("");
       setAmount("");
@@ -261,16 +241,14 @@ function MainScreen(props) {
   };
 
   const sendCashOnly = async () => {
+    window.plausible?.('Cash Transfer Submitted');
     if (!recipient || !amount) return;
-
     const senderUserIdx = userAddresses.findIndex(a => a.toLowerCase() === connectedWallet.toLowerCase());
     const senderCompanyIdx = companyAddresses.findIndex(a => a.toLowerCase() === connectedWallet.toLowerCase());
-
     if (senderUserIdx === -1 && senderCompanyIdx === -1) {
       addAlert("warning", "❗ The connected wallet is not a registered user or company wallet.");
       return;
     }
-
     if (senderUserIdx !== -1) {
       setUserCashBalances((prev) => {
         const newCash = [...prev];
@@ -284,10 +262,8 @@ function MainScreen(props) {
         return newCash;
       });
     }
-
     const recipientUserIdx = userAddresses.findIndex(a => a.toLowerCase() === recipient.toLowerCase());
     const recipientCompanyIdx = companyAddresses.findIndex(a => a.toLowerCase() === recipient.toLowerCase());
-
     if (recipientUserIdx !== -1) {
       setUserCashBalances((prev) => {
         const newCash = [...prev];
@@ -301,7 +277,6 @@ function MainScreen(props) {
         return newCash;
       });
     }
-
     setTransactions(prev => [
       ...prev,
       {
@@ -313,7 +288,6 @@ function MainScreen(props) {
         timestamp: new Date().toISOString()
       }
     ]);
-
     addAlert("success", `✅ Sent ${amount} cash only to ${getShortName(recipient)}`);
     setRecipient("");
     setAmount("");
@@ -324,17 +298,26 @@ function MainScreen(props) {
   }, [contract]);
 
   const handleCollectWithCheck = async () => {
+    window.plausible?.('Collect Clicked');
     await onCollect();
     await onFetchBalances();
-
     const totalUserBalance = userBalances.reduce((sum, balance) => sum + balance, 0);
     const expectedTotal = Math.floor(totalUserBalance * 0.1);
     const actualTotal = nationalBalance;
-
     if (actualTotal < expectedTotal) {
       const diff = expectedTotal - actualTotal;
       addAlert("warning", `⚖️ Total collected amount should be ${expectedTotal}. Please send ${diff} MetaPay manually from the admin wallet.`);
     }
+  };
+
+  const handleResetWithTrack = async () => {
+    window.plausible?.('Reset Clicked');
+    await onReset();
+  };
+
+  const handleFetchWithTrack = async () => {
+    window.plausible?.('Fetch Balances Clicked');
+    await onFetchBalances();
   };
 
   return (
@@ -347,27 +330,23 @@ function MainScreen(props) {
           ))}
         </ul>
       </div>
-
       <div className="main-container">
         <div className="content-wrapper">
           <h2>MetaPay Basic Income Simulator</h2>
           <p><strong>National Wallet Balance:</strong> {nationalBalance}</p>
           <p><strong>Distribution Count:</strong> {distributionCount} times</p>
-
           <div className="button-group">
             <button onClick={handleDistributeWithCash}>Distribute</button>
             <button onClick={handleCollectWithCheck}>Collect</button>
-            <button onClick={onReset}>Reset</button>
-            <button onClick={onFetchBalances}>Check Balances</button>
+            <button onClick={handleResetWithTrack}>Reset</button>
+            <button onClick={handleFetchWithTrack}>Check Balances</button>
             <button onClick={aiAnalysis}>AI Analysis</button>
           </div>
-
           <div className="transaction-summary">
             <h3>Current Transaction Summary</h3>
             <p>💼 Total Company Inflow: {companyBalances.reduce((acc, bal) => acc + bal, 0)}</p>
             <p>👤 Total User Distributed: {userBalances.reduce((acc, bal) => acc + bal, 0)}</p>
           </div>
-
           <div className="p2p-transfer">
             <h3>P2P Transfer</h3>
             <input type="text" value={recipient} placeholder="Recipient Address" onChange={(e) => setRecipient(e.target.value)} />
@@ -377,7 +356,6 @@ function MainScreen(props) {
               <button onClick={sendCashOnly}>Send Cash Only</button>
             </div>
           </div>
-
           <div className="user-list-grid">
             {userBalances.map((bal, idx) => (
               <UserBox
@@ -392,7 +370,6 @@ function MainScreen(props) {
               />
             ))}
           </div>
-
           <div className="company-list-grid">
             {companyBalances.map((bal, idx) => (
               <CompanyBox
@@ -407,7 +384,6 @@ function MainScreen(props) {
           </div>
         </div>
       </div>
-
       <div className="transaction-box" style={{ position: 'absolute', top: '20px', right: '40px', backgroundColor: 'white', color: 'black', padding: '12px', borderRadius: '8px', boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)', maxHeight: '600px', overflowY: 'auto', width: '300px' }}>
         <h4>📎 Transaction History</h4>
         <ul>
