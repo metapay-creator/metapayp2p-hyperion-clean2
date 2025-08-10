@@ -29,8 +29,6 @@ Its purpose is to demonstrate a sustainable economic model where income is conti
 
 ## 💹 MetaPay Circulation Model Overview
 
-The chart below illustrates the MetaPay Basic Income Circulation Model:
-
 ![MetaPay Circulation Chart](./public/metapay_full_flow_chart.png)
 
 - 🟩 Monthly distribution (green)  
@@ -132,6 +130,22 @@ vite-project/
 
 ---
 
+## 📊 AI Analysis Report
+
+The AI analysis of transaction data has been documented and is publicly accessible:  
+
+- [📄 View Analysis Report](https://metapayp2p-hyperion-clean2.vercel.app/analysis-report.txt)  
+- [🖼 Screenshot 1](https://metapayp2p-hyperion-clean2.vercel.app/analysis-1.png)  
+- [🖼 Screenshot 2](https://metapayp2p-hyperion-clean2.vercel.app/analysis-2.png)  
+
+---
+
+## 📈 Plausible Public Dashboard (Click Tracking)
+
+- [View Public Dashboard](https://plausible.io/metapayp2p-hyperion-clean2.vercel.app)  
+
+---
+
 ## 🚀 Getting Started
 
 1️⃣ Install dependencies  
@@ -149,6 +163,14 @@ npm run dev
 cd ai-server
 node server.js
 ```
+
+---
+
+## 🤖 AI Server Deployment Info
+
+- **GitHub Repository (AI Server)**: [https://github.com/metapaygyuhas/metapay-ai-server](https://github.com/metapaygyuhas/metapay-ai-server)  
+- **Render Deployment**: [https://metapay-openai-backend.onrender.com](https://metapay-openai-backend.onrender.com)  
+- **Security Notice**: `.env` file (OpenAI API Key) is excluded from the public repository. It can be shared privately upon request.
 
 ---
 
@@ -221,34 +243,15 @@ With the power of OpenAI API, metapayp2p-hyperion-clean simulates intelligent in
 - 📝 **GitHub Repository:** [metapayp2p-hyperion-clean2](https://github.com/metapaygyuhas/metapayp2p-hyperion-clean2)  
 - ▶️ **YouTube Channel:** MetaPay Project  
 - 🔥 **💻 Live DApp:** [https://metapayp2p-hyperion-clean2.vercel.app](https://metapayp2p-hyperion-clean2.vercel.app)  
+- 📊 **Plausible Public Dashboard:** [View Stats](https://plausible.io/metapayp2p-hyperion-clean2.vercel.app)  
 - ❌ **Twitter (X):** [@metapay_creator](https://x.com/metapay_creator)  
 
-## 🤖 AI Server Deployment Info
-
-- The AI backend is **already deployed** on Render for automated behavior analysis:
-  - **Render Endpoint:** https://metapay-openai-backend.onrender.com  
-- The frontend is **pre-configured** to call this deployed AI backend automatically.
-- **No local AI server setup is required** for running the demo — simply run the frontend.
-- AI backend code is **not pushed to GitHub** for security reasons (contains `.env` with API keys).
-- For review purposes, the backend code can be provided privately upon request.
-
-
+---
 
 ## 📄 Official User Guide (Must Read)
 
 [📄 MetaPayP2P User Manual (Google Drive)](https://drive.google.com/file/d/1SAVL8EIXByRPtT2VqP7soc3sPb3JSiUK/view?usp=sharing)
 
----
----
-## ℹ️ Note on Cash Handling
-
-The **cash transfer simulation** (💵) is handled entirely on the **frontend** for demonstration purposes only.  
-This allows flexible scenario creation for demo videos and user testing.  
-All **MetaPay (🪙)** transactions — including distributions and recollections — are processed via **on-chain smart contracts**.
-
-> 📝 The frontend cash logic does not affect blockchain behavior or smart contract operations.
-
----
 ---
 
 ## ⚖️ Enhanced License Notice
